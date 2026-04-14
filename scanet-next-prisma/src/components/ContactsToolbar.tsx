@@ -97,8 +97,8 @@ export function ContactsToolbar({
 
                     <button onClick={() => setShowFilters(!showFilters)}
                         className={`flex items-center gap-2 px-4 py-2.5 text-sm lg:text-base rounded-2xl transition-all whitespace-nowrap font-semibold shadow-sm hover:shadow-md ${showFilters || activeFiltersCount > 0
-                                ? 'bg-[linear-gradient(135deg,#171311,#ff385c)] text-white shadow-[0_18px_36px_rgba(255,56,92,0.18)]'
-                                : 'floating-panel text-gray-700 hover:bg-white/90'
+                            ? 'bg-[linear-gradient(135deg,#171311,#ff385c)] text-white shadow-[0_18px_36px_rgba(255,56,92,0.18)]'
+                            : 'floating-panel text-gray-700 hover:bg-white/90'
                             }`}
                     >
                         <SlidersHorizontal className="w-4 h-4 lg:w-5 lg:h-5" /><span className="hidden sm:inline">Filtres</span>

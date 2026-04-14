@@ -23,7 +23,8 @@
     --surface-strong: rgba(255, 255, 255, 0.96);
     --shadow-soft: 0 18px 50px rgba(62, 39, 24, 0.08);
     --shadow-lifted: 0 26px 60px rgba(255, 56, 92, 0.16);
-    --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    --font-display:
+      "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   }
 
   * {
@@ -37,8 +38,16 @@
   body {
     font-family: var(--font-inter), "Segoe UI", sans-serif;
     background:
-      radial-gradient(circle at top left, rgba(255, 214, 221, 0.85), transparent 32%),
-      radial-gradient(circle at top right, rgba(255, 240, 229, 0.9), transparent 28%),
+      radial-gradient(
+        circle at top left,
+        rgba(255, 214, 221, 0.85),
+        transparent 32%
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(255, 240, 229, 0.9),
+        transparent 28%
+      ),
       linear-gradient(180deg, #fffdf9 0%, #fbf7f2 48%, #f8f2ec 100%);
     color: var(--text-dark);
     min-height: 100vh;
@@ -75,7 +84,11 @@
 
 @layer components {
   .glass-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 245, 0.84));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 250, 245, 0.84)
+    );
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(235, 227, 216, 0.95);
@@ -97,7 +110,11 @@
 
   .btn-primary {
     @apply px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 shadow-md hover:shadow-lg;
-    background: linear-gradient(135deg, var(--accent-brand) 0%, var(--accent-brand-deep) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--accent-brand) 0%,
+      var(--accent-brand-deep) 100%
+    );
   }
 
   .btn-primary:hover {
@@ -175,7 +192,13 @@
 
   .soft-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(235, 227, 216, 0.9) 15%, rgba(235, 227, 216, 0.9) 85%, transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(235, 227, 216, 0.9) 15%,
+      rgba(235, 227, 216, 0.9) 85%,
+      transparent 100%
+    );
   }
 
   .floating-panel {

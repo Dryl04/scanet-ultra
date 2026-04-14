@@ -46,8 +46,8 @@ export function StatusTabs({ currentStatus, counts, onStatusChange }: StatusTabs
                 <button
                     onClick={() => onStatusChange('all')}
                     className={`px-3 sm:px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap border border-transparent ${currentStatus === 'all'
-                            ? 'bg-[linear-gradient(135deg,#171311,#2d211d)] text-white shadow-[0_16px_30px_rgba(23,19,17,0.16)]'
-                            : 'text-gray-600 hover:bg-white/70'
+                        ? 'bg-[linear-gradient(135deg,#171311,#2d211d)] text-white shadow-[0_16px_30px_rgba(23,19,17,0.16)]'
+                        : 'text-gray-600 hover:bg-white/70'
                         }`}
                 >
                     Tous
