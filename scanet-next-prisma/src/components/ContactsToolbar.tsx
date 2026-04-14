@@ -60,24 +60,24 @@ export function ContactsToolbar({
     };
 
     return (
-        <div className="glass-card p-4 lg:p-6 space-y-4 mb-6">
+        <div className="glass-card mb-6 space-y-4 p-4 lg:p-6">
             <div className="flex flex-col gap-3">
                 <div className="w-full relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--accent-brand-deep)]" />
                     <input
                         type="text" value={searchTerm} onChange={(e) => onSearchChange(e.target.value)}
                         placeholder="Rechercher un contact (nom, email, entreprise...)"
-                        className="w-full pl-12 pr-4 py-3 text-sm lg:text-base bg-white/50 backdrop-blur-sm border border-white/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all shadow-sm"
+                        className="input-modern w-full py-3 pl-12 pr-4 text-sm lg:text-base"
                     />
                 </div>
 
                 <div className="flex flex-wrap gap-2 items-center">
-                    <div className="flex gap-2 bg-white/40 backdrop-blur-sm rounded-2xl p-1.5 border border-white/60">
+                    <div className="floating-panel flex gap-2 p-1.5">
                         {(['grid', 'list', 'photos'] as ViewMode[]).map((mode) => {
                             const Icon = mode === 'grid' ? Grid3x3 : mode === 'list' ? List : Images;
                             return (
                                 <button key={mode} onClick={() => onViewModeChange(mode)}
-                                    className={`p-2 rounded-xl transition-all ${viewMode === mode ? 'bg-gradient-to-br from-white to-blue-50 shadow-md text-blue-600' : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'}`}
+                                    className={`rounded-[1rem] p-2 transition-all ${viewMode === mode ? 'bg-[rgba(255,56,92,0.1)] text-[var(--accent-brand-deep)] shadow-[0_10px_22px_rgba(255,56,92,0.12)]' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
                                     title={mode === 'grid' ? 'Vue en cartes' : mode === 'list' ? 'Vue en liste' : 'Vue en photos'}
                                 >
                                     <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
@@ -88,7 +88,7 @@ export function ContactsToolbar({
 
                     <div className="relative flex-1 min-w-[140px]">
                         <select value={sortBy} onChange={(e) => onSortChange(e.target.value as SortOption)}
-                            className="appearance-none w-full pl-3 pr-9 py-2.5 text-sm lg:text-base bg-gradient-to-br from-white/60 to-white/40 backdrop-blur-sm border border-white/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all shadow-sm cursor-pointer font-medium hover:shadow-md"
+                            className="input-modern appearance-none w-full cursor-pointer py-2.5 pl-3 pr-9 text-sm font-medium lg:text-base"
                         >
                             {sortOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
                         </select>
@@ -97,8 +97,8 @@ export function ContactsToolbar({
 
                     <button onClick={() => setShowFilters(!showFilters)}
                         className={`flex items-center gap-2 px-4 py-2.5 text-sm lg:text-base rounded-2xl transition-all whitespace-nowrap font-semibold shadow-sm hover:shadow-md ${showFilters || activeFiltersCount > 0
-                                ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-200 hover:from-blue-600 hover:to-blue-700'
-                                : 'bg-gradient-to-br from-white/60 to-white/40 backdrop-blur-sm text-gray-700 hover:from-white hover:to-white/80 border border-white/60'
+                                ? 'bg-[linear-gradient(135deg,#171311,#ff385c)] text-white shadow-[0_18px_36px_rgba(255,56,92,0.18)]'
+                                : 'floating-panel text-gray-700 hover:bg-white/90'
                             }`}
                     >
                         <SlidersHorizontal className="w-4 h-4 lg:w-5 lg:h-5" /><span className="hidden sm:inline">Filtres</span>
@@ -109,7 +109,7 @@ export function ContactsToolbar({
 
                     {onAddContact && (
                         <button onClick={onAddContact}
-                            className="hidden lg:flex items-center gap-2 px-5 py-2.5 text-sm lg:text-base rounded-full transition-all whitespace-nowrap font-semibold shadow-lg hover:shadow-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white ml-auto"
+                            className="btn-primary ml-auto hidden items-center gap-2 whitespace-nowrap px-5 py-2.5 text-sm shadow-[0_18px_36px_rgba(255,56,92,0.18)] transition-all hover:shadow-[0_22px_45px_rgba(255,56,92,0.22)] lg:flex lg:text-base"
                         >
                             <Plus className="w-5 h-5" /><span>Ajouter un contact</span>
                         </button>
@@ -118,12 +118,12 @@ export function ContactsToolbar({
             </div>
 
             {showFilters && (
-                <div className="pt-5 border-t border-white/40 space-y-5">
+                <div className="space-y-5 border-t border-[rgba(235,227,216,0.9)] pt-5">
                     <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-bold text-gray-900 text-base lg:text-lg">Filtres avancés</h3>
+                        <h3 className="display-title text-2xl text-[var(--text-dark)]">Filtres avancés</h3>
                         {activeFiltersCount > 0 && (
                             <button onClick={clearFilters}
-                                className="text-sm lg:text-base text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 transition-all shadow-sm hover:shadow-md"
+                                className="flex items-center gap-2 rounded-[1rem] bg-[rgba(255,56,92,0.08)] px-4 py-2 text-sm font-semibold text-[var(--accent-brand-deep)] transition-all hover:bg-[rgba(255,56,92,0.12)] lg:text-base"
                             >
                                 <X className="w-4 h-4" />Réinitialiser
                             </button>
@@ -136,23 +136,23 @@ export function ContactsToolbar({
                         <FilterDropdown label="Type de relation" options={relationshipOptions} selectedValues={filters.relationships} onChange={(v) => onFiltersChange({ ...filters, relationships: v })} placeholder="Sélectionner des relations" />
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">Ville</label>
-                            <input type="text" placeholder="Entrer une ville" value={filters.cities[0] || ''} onChange={(e) => onFiltersChange({ ...filters, cities: e.target.value ? [e.target.value] : [] })} className="w-full bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all" />
+                            <input type="text" placeholder="Entrer une ville" value={filters.cities[0] || ''} onChange={(e) => onFiltersChange({ ...filters, cities: e.target.value ? [e.target.value] : [] })} className="input-modern w-full rounded-[1rem] px-4 py-2.5" />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">Région</label>
-                            <input type="text" placeholder="Entrer une région" value={filters.regions[0] || ''} onChange={(e) => onFiltersChange({ ...filters, regions: e.target.value ? [e.target.value] : [] })} className="w-full bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all" />
+                            <input type="text" placeholder="Entrer une région" value={filters.regions[0] || ''} onChange={(e) => onFiltersChange({ ...filters, regions: e.target.value ? [e.target.value] : [] })} className="input-modern w-full rounded-[1rem] px-4 py-2.5" />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">Pays</label>
-                            <input type="text" placeholder="Entrer un pays" value={filters.countries[0] || ''} onChange={(e) => onFiltersChange({ ...filters, countries: e.target.value ? [e.target.value] : [] })} className="w-full bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all" />
+                            <input type="text" placeholder="Entrer un pays" value={filters.countries[0] || ''} onChange={(e) => onFiltersChange({ ...filters, countries: e.target.value ? [e.target.value] : [] })} className="input-modern w-full rounded-[1rem] px-4 py-2.5" />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">Montant d&apos;opportunité (min)</label>
-                            <input type="number" placeholder="0" value={filters.opportunityMin || ''} onChange={(e) => onFiltersChange({ ...filters, opportunityMin: e.target.value ? parseFloat(e.target.value) : null })} className="w-full bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all" />
+                            <input type="number" placeholder="0" value={filters.opportunityMin || ''} onChange={(e) => onFiltersChange({ ...filters, opportunityMin: e.target.value ? parseFloat(e.target.value) : null })} className="input-modern w-full rounded-[1rem] px-4 py-2.5" />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">Montant d&apos;opportunité (max)</label>
-                            <input type="number" placeholder="∞" value={filters.opportunityMax || ''} onChange={(e) => onFiltersChange({ ...filters, opportunityMax: e.target.value ? parseFloat(e.target.value) : null })} className="w-full bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all" />
+                            <input type="number" placeholder="∞" value={filters.opportunityMax || ''} onChange={(e) => onFiltersChange({ ...filters, opportunityMax: e.target.value ? parseFloat(e.target.value) : null })} className="input-modern w-full rounded-[1rem] px-4 py-2.5" />
                         </div>
                     </div>
                 </div>

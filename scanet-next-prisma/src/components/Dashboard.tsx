@@ -218,6 +218,40 @@ export function Dashboard() {
 
     const handleContactClick = (contact: Contact) => setSelectedContactId(contact.id);
     const handleSendOffer = (contact: Contact) => { setSelectedContactId(contact.id); setView('offers'); };
+    const quickActions = [
+        {
+            onClick: () => setShowAddModal(true),
+            icon: Plus,
+            title: 'Nouveau contact',
+            desc: 'Ajouter un profil et enrichir votre réseau.',
+            iconWrapClass: 'bg-[rgba(255,56,92,0.12)] text-[#d61f53]',
+            cardClass: 'border-[rgba(255,56,92,0.14)] hover:border-[rgba(255,56,92,0.34)] hover:shadow-[0_16px_35px_rgba(255,56,92,0.12)]',
+        },
+        {
+            onClick: () => setShowAddEventModal(true),
+            icon: Calendar,
+            title: 'Nouvel événement',
+            desc: 'Préparez une rencontre et son point de collecte.',
+            iconWrapClass: 'bg-[rgba(124,58,237,0.12)] text-violet-700',
+            cardClass: 'border-[rgba(124,58,237,0.14)] hover:border-[rgba(124,58,237,0.28)] hover:shadow-[0_16px_35px_rgba(124,58,237,0.12)]',
+        },
+        {
+            onClick: () => setView('opportunities'),
+            icon: Target,
+            title: 'Opportunités',
+            desc: 'Suivez vos deals actifs sans changer de rythme.',
+            iconWrapClass: 'bg-[rgba(16,185,129,0.12)] text-emerald-700',
+            cardClass: 'border-[rgba(16,185,129,0.14)] hover:border-[rgba(16,185,129,0.28)] hover:shadow-[0_16px_35px_rgba(16,185,129,0.12)]',
+        },
+        {
+            onClick: () => setView('offers'),
+            icon: Briefcase,
+            title: 'Offres',
+            desc: 'Retrouvez vos propositions prêtes à être envoyées.',
+            iconWrapClass: 'bg-[rgba(249,115,22,0.12)] text-orange-700',
+            cardClass: 'border-[rgba(249,115,22,0.14)] hover:border-[rgba(249,115,22,0.28)] hover:shadow-[0_16px_35px_rgba(249,115,22,0.12)]',
+        },
+    ];
 
     if (selectedContactId) {
         return (
@@ -240,7 +274,13 @@ export function Dashboard() {
     }
 
     return (
-        <div className="flex h-screen bg-white overflow-hidden relative">
+        <div className="relative flex h-screen overflow-hidden bg-[var(--bg-base)]">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute left-[-9rem] top-[-7rem] h-72 w-72 rounded-full bg-[rgba(255,214,221,0.55)] blur-3xl" />
+                <div className="absolute right-[-6rem] top-20 h-64 w-64 rounded-full bg-[rgba(255,240,229,0.7)] blur-3xl" />
+                <div className="absolute bottom-[-8rem] left-1/3 h-72 w-72 rounded-full bg-[rgba(255,56,92,0.08)] blur-3xl" />
+            </div>
+
             <Sidebar
                 view={view}
                 onViewChange={(newView) => { setView(newView); setIsSidebarOpen(false); if (newView === 'events') loadEvents(); }}
@@ -259,13 +299,16 @@ export function Dashboard() {
                 onMobileClose={() => setIsSidebarOpen(false)}
             />
 
-            <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
-                <header className="sticky top-0 z-20 bg-white border-b border-gray-200 shadow-sm px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+            <div className="relative z-10 flex flex-1 flex-col overflow-hidden lg:ml-0">
+                <header className="sticky top-0 z-20 border-b border-[rgba(235,227,216,0.9)] bg-[rgba(255,251,247,0.82)] px-4 py-3 shadow-[0_10px_30px_rgba(58,40,28,0.04)] backdrop-blur-xl sm:px-6 sm:py-4 lg:px-8">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
                             <img src="https://i.ibb.co/q3YDjGLC/Scanetwork.png" alt="Scanetwork" className="h-8 sm:h-9 lg:hidden object-contain flex-shrink-0" />
                             <div className="min-w-0">
-                                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 truncate">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--accent-brand-deep)]">
+                                    Espace de travail
+                                </p>
+                                <h2 className="display-title truncate text-[2rem] leading-none text-[var(--text-dark)] sm:text-[2.25rem] lg:text-[2.6rem]">
                                     {view === 'dashboard' && 'Tableau de bord'}
                                     {view === 'contacts' && 'Mes Contacts'}
                                     {view === 'events' && 'Événements'}
@@ -275,15 +318,15 @@ export function Dashboard() {
                                     {view === 'enterprise' && 'Entreprise'}
                                     {view === 'settings' && 'Paramètres'}
                                 </h2>
-                                <p className="text-xs sm:text-sm text-muted mt-0.5 truncate hidden sm:block">Bienvenue, {profile?.full_name || 'User'}</p>
+                                <p className="mt-1 hidden truncate text-xs text-[var(--text-gray)] sm:block sm:text-sm">Bienvenue, {profile?.full_name || 'User'}</p>
                             </div>
                         </div>
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 pb-32 lg:pb-8">
+                <main className="flex-1 overflow-y-auto px-4 py-4 pb-36 sm:px-6 sm:py-5 lg:px-8 lg:py-6 lg:pb-10">
                     {view === 'contacts' && (
-                        <div className="max-w-7xl mx-auto w-full">
+                        <div className="mx-auto w-full max-w-7xl space-y-6">
                             <Hero label="Networking" imageUrl="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg" imageAlt="Networking contacts">
                                 <HeroText>Gérez et développez</HeroText>
                                 <HeroText highlight highlightColor="purple">votre réseau</HeroText>
@@ -304,23 +347,24 @@ export function Dashboard() {
                             />
 
                             {loading ? (
-                                <div className="text-center py-16 glass-card">
-                                    <div className="animate-spin rounded-full h-14 w-14 border-4 border-blue-500 border-t-transparent mx-auto" />
-                                    <p className="mt-4 text-gray-700 font-semibold">Chargement des contacts...</p>
+                                <div className="glass-card py-16 text-center">
+                                    <div className="mx-auto h-14 w-14 animate-spin rounded-full border-4 border-[rgba(255,56,92,0.16)] border-t-[var(--accent-brand)]" />
+                                    <p className="mt-4 font-semibold text-[var(--text-dark)]">Chargement des contacts...</p>
                                 </div>
                             ) : filteredContacts.length === 0 ? (
-                                <div className="text-center py-16 glass-card">
-                                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                                        <Users className="w-10 h-10 text-blue-600" />
+                                <div className="glass-card relative overflow-hidden py-16 text-center">
+                                    <div className="absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,56,92,0.25),transparent)]" />
+                                    <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.75rem] bg-[linear-gradient(135deg,rgba(255,56,92,0.14),rgba(255,217,226,0.7))] shadow-[0_20px_40px_rgba(255,56,92,0.12)]">
+                                        <Users className="h-10 w-10 text-[var(--accent-brand-deep)]" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-3">Aucun contact trouvé</h3>
-                                    <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                                    <h3 className="display-title mb-3 text-3xl text-[var(--text-dark)]">Aucun contact trouvé</h3>
+                                    <p className="mx-auto mb-6 max-w-md text-[var(--text-gray)]">
                                         {searchTerm || filterStatus !== 'all' || filters.events.length > 0 || filters.tags.length > 0
                                             ? "Essayez d'ajuster vos filtres pour voir plus de résultats"
                                             : 'Commencez à construire votre réseau en ajoutant votre premier contact'}
                                     </p>
                                     {!searchTerm && filterStatus === 'all' && filters.events.length === 0 && (
-                                        <button onClick={() => setShowAddModal(true)} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl hover:from-blue-600 hover:to-blue-700 transition-all font-semibold shadow-lg shadow-blue-200">
+                                        <button onClick={() => setShowAddModal(true)} className="btn-primary inline-flex items-center gap-2 px-6 py-3 shadow-[0_18px_40px_rgba(255,56,92,0.18)]">
                                             <Plus className="w-5 h-5" />Ajouter votre premier contact
                                         </button>
                                     )}
@@ -351,17 +395,19 @@ export function Dashboard() {
                             </Hero>
 
                             {/* KPI Cards */}
-                            <div className="bg-white/90 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-5 lg:p-6 border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                            <div className="relative overflow-hidden rounded-[2rem] border border-[rgba(235,227,216,0.9)] bg-[linear-gradient(145deg,rgba(255,255,255,0.96),rgba(255,244,239,0.9))] p-5 shadow-[0_24px_55px_rgba(58,40,28,0.08)] lg:p-6">
+                                <div className="pointer-events-none absolute right-[-2rem] top-[-1rem] h-40 w-40 rounded-full bg-[rgba(255,56,92,0.09)] blur-3xl" />
                                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6 lg:gap-8">
                                     <div className="grid grid-cols-2 gap-3 lg:gap-4">
                                         {/* Total Contacts - Dark card */}
                                         <div className="group relative overflow-hidden">
-                                            <div className="relative rounded-xl lg:rounded-2xl p-4 lg:p-5 border transition-all duration-300 hover:-translate-y-0.5 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-gray-700/50 shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
-                                                <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/5 to-transparent opacity-60 rounded-xl lg:rounded-2xl" />
+                                            <div className="relative overflow-hidden rounded-[1.6rem] border border-[rgba(255,255,255,0.12)] bg-[linear-gradient(135deg,#171311_0%,#2d211d_52%,#ff385c_180%)] p-4 shadow-[0_22px_40px_rgba(23,19,17,0.32)] transition-all duration-300 hover:-translate-y-0.5 lg:p-5">
+                                                <div className="absolute -right-8 top-8 h-28 w-28 rounded-full border border-white/10" />
+                                                <div className="absolute -right-4 top-4 h-36 w-36 rounded-full bg-white/10" />
                                                 <div className="relative z-10">
                                                     <div className="flex items-center gap-2 mb-2 lg:mb-3">
                                                         <div className="p-1.5 rounded-lg bg-white/10"><Users className="w-3.5 h-3.5 text-white/90" strokeWidth={2} /></div>
-                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-wider text-white/70">Total Contacts</p>
+                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-[0.22em] text-white/70">Total Contacts</p>
                                                     </div>
                                                     <h3 className="text-2xl lg:text-3xl font-bold tracking-tight text-white">{globalKpis.totalContacts}</h3>
                                                 </div>
@@ -370,24 +416,24 @@ export function Dashboard() {
 
                                         {/* CA Gagné */}
                                         <div className="group relative overflow-hidden">
-                                            <div className="relative rounded-xl lg:rounded-2xl p-4 lg:p-5 border transition-all duration-300 hover:-translate-y-0.5 bg-white border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+                                            <div className="relative rounded-[1.6rem] border border-[rgba(235,227,216,0.85)] bg-white/90 p-4 shadow-[0_12px_28px_rgba(58,40,28,0.08)] transition-all duration-300 hover:-translate-y-0.5 lg:p-5">
                                                 <div className="relative z-10">
                                                     <div className="flex items-center gap-2 mb-2 lg:mb-3">
-                                                        <div className="p-1.5 rounded-lg" style={{ backgroundColor: '#10b98115' }}><DollarSign className="w-3.5 h-3.5" strokeWidth={2} style={{ color: '#10b981' }} /></div>
-                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-wider text-gray-500">CA Gagné</p>
+                                                        <div className="rounded-xl p-2" style={{ backgroundColor: '#10b98115' }}><DollarSign className="w-3.5 h-3.5" strokeWidth={2} style={{ color: '#10b981' }} /></div>
+                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-[0.22em] text-gray-500">CA Gagné</p>
                                                     </div>
-                                                    <h3 className="text-xl lg:text-2xl font-bold tracking-tight text-gray-900">{formatCurrency(globalKpis.wonAmount, globalKpis.userCurrency)}</h3>
+                                                    <h3 className="text-xl font-bold tracking-tight text-gray-900 lg:text-2xl">{formatCurrency(globalKpis.wonAmount, globalKpis.userCurrency)}</h3>
                                                 </div>
                                             </div>
                                         </div>
 
                                         {/* Opportunités */}
                                         <div className="group relative overflow-hidden">
-                                            <div className="relative rounded-xl lg:rounded-2xl p-4 lg:p-5 border transition-all duration-300 hover:-translate-y-0.5 bg-white border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+                                            <div className="relative rounded-[1.6rem] border border-[rgba(235,227,216,0.85)] bg-white/90 p-4 shadow-[0_12px_28px_rgba(58,40,28,0.08)] transition-all duration-300 hover:-translate-y-0.5 lg:p-5">
                                                 <div className="relative z-10">
                                                     <div className="flex items-center gap-2 mb-2 lg:mb-3">
-                                                        <div className="p-1.5 rounded-lg" style={{ backgroundColor: '#8b5cf615' }}><Target className="w-3.5 h-3.5" strokeWidth={2} style={{ color: '#8b5cf6' }} /></div>
-                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-wider text-gray-500">Opportunités</p>
+                                                        <div className="rounded-xl p-2" style={{ backgroundColor: '#8b5cf615' }}><Target className="w-3.5 h-3.5" strokeWidth={2} style={{ color: '#8b5cf6' }} /></div>
+                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-[0.22em] text-gray-500">Opportunités</p>
                                                     </div>
                                                     <h3 className="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900">{globalKpis.activeOpportunities}</h3>
                                                 </div>
@@ -396,11 +442,11 @@ export function Dashboard() {
 
                                         {/* Pipeline */}
                                         <div className="group relative overflow-hidden">
-                                            <div className="relative rounded-xl lg:rounded-2xl p-4 lg:p-5 border transition-all duration-300 hover:-translate-y-0.5 bg-white border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+                                            <div className="relative rounded-[1.6rem] border border-[rgba(235,227,216,0.85)] bg-white/90 p-4 shadow-[0_12px_28px_rgba(58,40,28,0.08)] transition-all duration-300 hover:-translate-y-0.5 lg:p-5">
                                                 <div className="relative z-10">
                                                     <div className="flex items-center gap-2 mb-2 lg:mb-3">
-                                                        <div className="p-1.5 rounded-lg" style={{ backgroundColor: '#f59e0b15' }}><TrendingUp className="w-3.5 h-3.5" strokeWidth={2} style={{ color: '#f59e0b' }} /></div>
-                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-wider text-gray-500">Pipeline</p>
+                                                        <div className="rounded-xl p-2" style={{ backgroundColor: '#f59e0b15' }}><TrendingUp className="w-3.5 h-3.5" strokeWidth={2} style={{ color: '#f59e0b' }} /></div>
+                                                        <p className="text-[10px] lg:text-xs font-medium uppercase tracking-[0.22em] text-gray-500">Pipeline</p>
                                                     </div>
                                                     <h3 className="text-xl lg:text-2xl font-bold tracking-tight text-gray-900">{formatCurrency(globalKpis.totalPipeline, globalKpis.userCurrency)}</h3>
                                                 </div>
@@ -409,28 +455,25 @@ export function Dashboard() {
                                     </div>
 
                                     {/* Quick Actions */}
-                                    <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-xl lg:rounded-2xl p-5 lg:p-6 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
+                                    <div className="relative overflow-hidden rounded-[1.8rem] border border-[rgba(235,227,216,0.9)] bg-[rgba(255,255,255,0.82)] p-5 shadow-[0_18px_40px_rgba(58,40,28,0.08)] backdrop-blur-xl lg:p-6">
+                                        <div className="absolute inset-x-6 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,56,92,0.28),transparent)]" />
                                         <div className="relative z-10">
                                             <div className="mb-4">
-                                                <h3 className="text-sm font-semibold text-gray-700 mb-1">Actions rapides</h3>
-                                                <p className="text-xs text-gray-500">Gérez rapidement vos contacts et opportunités</p>
+                                                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent-brand-deep)]">Actions rapides</p>
+                                                <h3 className="display-title mt-1 text-3xl text-[var(--text-dark)]">Gardez le rythme</h3>
+                                                <p className="mt-1 text-sm text-[var(--text-gray)]">Accès direct aux actions les plus fréquentes du jour.</p>
                                             </div>
                                             <div className="flex flex-col gap-3">
-                                                {[
-                                                    { onClick: () => setShowAddModal(true), icon: Plus, color: 'blue', title: 'Nouveau contact', desc: 'Ajouter un contact à votre réseau' },
-                                                    { onClick: () => setShowAddEventModal(true), icon: Calendar, color: 'purple', title: 'Nouvel événement', desc: 'Créer un événement de networking' },
-                                                    { onClick: () => setView('opportunities'), icon: Target, color: 'emerald', title: 'Opportunités', desc: 'Gérer vos opportunités commerciales' },
-                                                    { onClick: () => setView('offers'), icon: Briefcase, color: 'orange', title: 'Offres', desc: 'Consulter vos offres commerciales' },
-                                                ].map((action) => (
-                                                    <button key={action.title} onClick={action.onClick} className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 group">
-                                                        <div className={`w-10 h-10 rounded-lg bg-${action.color}-50 flex items-center justify-center group-hover:bg-${action.color}-100 transition-colors`}>
-                                                            <action.icon className={`w-5 h-5 text-${action.color}-600`} />
+                                                {quickActions.map((action) => (
+                                                    <button key={action.title} onClick={action.onClick} className={`group flex items-center gap-3 rounded-[1.4rem] border bg-white/88 p-3.5 transition-all duration-200 ${action.cardClass}`}>
+                                                        <div className={`flex h-11 w-11 items-center justify-center rounded-[1rem] ${action.iconWrapClass}`}>
+                                                            <action.icon className="h-5 w-5" />
                                                         </div>
                                                         <div className="flex-1 text-left">
-                                                            <div className="font-semibold text-gray-900 text-sm">{action.title}</div>
-                                                            <div className="text-xs text-gray-500">{action.desc}</div>
+                                                            <div className="text-sm font-semibold text-gray-900">{action.title}</div>
+                                                            <div className="text-xs text-[var(--text-gray)]">{action.desc}</div>
                                                         </div>
-                                                        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all" />
+                                                        <ArrowRight className="h-4 w-4 text-gray-400 transition-all group-hover:translate-x-1 group-hover:text-[var(--text-dark)]" />
                                                     </button>
                                                 ))}
                                             </div>
@@ -442,26 +485,26 @@ export function Dashboard() {
                             <PersonalObjectives />
 
                             {/* Derniers contacts ajoutés */}
-                            <div className="relative overflow-hidden glass-card p-5 lg:p-6">
+                            <div className="glass-card relative overflow-hidden p-5 lg:p-6">
                                 <div className="relative flex items-center justify-between mb-5">
-                                    <h3 className="text-xl font-bold text-gray-900">Derniers contacts ajoutés</h3>
-                                    <button onClick={() => setView('contacts')} className="text-sm font-semibold text-[#0E3A5D] hover:text-[#1e5a8e] flex items-center gap-1 transition-all">
+                                    <h3 className="display-title text-3xl text-[var(--text-dark)]">Derniers contacts ajoutés</h3>
+                                    <button onClick={() => setView('contacts')} className="flex items-center gap-1 text-sm font-semibold text-[var(--accent-brand-deep)] transition-all hover:text-[var(--accent-brand)]">
                                         Voir tous <ArrowRight className="w-4 h-4" />
                                     </button>
                                 </div>
                                 {contacts.length === 0 ? (
                                     <div className="relative text-center py-12 px-4">
-                                        <Users className="w-16 h-16 text-gray-300 mx-auto mb-3" /><p className="text-gray-500 font-medium">Aucun contact trouvé</p>
+                                        <Users className="mx-auto mb-3 h-16 w-16 text-gray-300" /><p className="font-medium text-[var(--text-gray)]">Aucun contact trouvé</p>
                                     </div>
                                 ) : (
                                     <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                                         {contacts.slice(0, 5).map((contact) => (
-                                            <div key={contact.id} onClick={() => handleContactClick(contact)} className="glass-card p-4 cursor-pointer group">
+                                            <div key={contact.id} onClick={() => handleContactClick(contact)} className="glass-card cursor-pointer p-4 group">
                                                 <div className="flex flex-col items-center text-center">
                                                     {contact.avatar_url ? (
-                                                        <img src={contact.avatar_url} alt={contact.full_name} className="w-16 h-16 rounded-full object-cover ring-2 ring-white/50 shadow-lg mb-3" />
+                                                        <img src={contact.avatar_url} alt={contact.full_name} className="mb-3 h-16 w-16 rounded-full object-cover ring-4 ring-white shadow-lg" />
                                                     ) : (
-                                                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-lg font-semibold ring-2 ring-white/50 shadow-lg mb-3">
+                                                        <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-[linear-gradient(135deg,#ff5c7c,#d61f53)] text-lg font-semibold text-white ring-4 ring-white shadow-lg">
                                                             {contact.full_name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)}
                                                         </div>
                                                     )}
@@ -480,31 +523,31 @@ export function Dashboard() {
                             </div>
 
                             {/* Derniers événements */}
-                            <div className="relative overflow-hidden glass-card p-5 lg:p-6">
+                            <div className="glass-card relative overflow-hidden p-5 lg:p-6">
                                 <div className="relative flex items-center justify-between mb-5">
-                                    <h3 className="text-xl font-bold text-gray-900">Derniers événements</h3>
-                                    <button onClick={() => setView('events')} className="text-sm font-semibold text-[#0E3A5D] hover:text-[#1e5a8e] flex items-center gap-1 transition-all">
+                                    <h3 className="display-title text-3xl text-[var(--text-dark)]">Derniers événements</h3>
+                                    <button onClick={() => setView('events')} className="flex items-center gap-1 text-sm font-semibold text-[var(--accent-brand-deep)] transition-all hover:text-[var(--accent-brand)]">
                                         Voir tous <ArrowRight className="w-4 h-4" />
                                     </button>
                                 </div>
                                 {eventsLoading ? (
                                     <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                                        {[...Array(4)].map((_, i) => <div key={i} className="flex-shrink-0 w-64 h-40 rounded-3xl bg-gray-100 animate-pulse" />)}
+                                        {[...Array(4)].map((_, i) => <div key={i} className="h-40 w-64 flex-shrink-0 rounded-[1.9rem] bg-[rgba(255,255,255,0.74)] animate-pulse" />)}
                                     </div>
                                 ) : events.length === 0 ? (
                                     <div className="relative text-center py-12 px-4">
-                                        <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-3" /><p className="text-gray-500 font-medium">Aucun événement trouvé</p>
+                                        <Calendar className="mx-auto mb-3 h-16 w-16 text-gray-300" /><p className="font-medium text-[var(--text-gray)]">Aucun événement trouvé</p>
                                     </div>
                                 ) : (
                                     <div className="relative flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                         {events.slice(0, 6).map((event) => (
-                                            <div key={event.id} onClick={() => setSelectedEventId(event.id)} className="flex-shrink-0 w-64 glass-card p-4 cursor-pointer group text-left">
+                                            <div key={event.id} onClick={() => setSelectedEventId(event.id)} className="glass-card group w-64 flex-shrink-0 cursor-pointer p-4 text-left">
                                                 {event.image_url ? (
-                                                    <div className="w-full h-24 rounded-2xl mb-3 overflow-hidden bg-gray-100 ring-2 ring-white/50 shadow-lg">
+                                                    <div className="mb-3 h-24 w-full overflow-hidden rounded-[1.4rem] bg-gray-100 shadow-lg ring-2 ring-white/70">
                                                         <img src={event.image_url} alt={event.name} className="w-full h-full object-cover" />
                                                     </div>
                                                 ) : (
-                                                    <div className="w-full h-24 rounded-2xl mb-3 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center ring-2 ring-white/50 shadow-lg">
+                                                    <div className="mb-3 flex h-24 w-full items-center justify-center rounded-[1.4rem] bg-[linear-gradient(135deg,#171311,#ff385c)] shadow-lg ring-2 ring-white/70">
                                                         <Calendar className="w-8 h-8 text-white" />
                                                     </div>
                                                 )}
@@ -518,7 +561,7 @@ export function Dashboard() {
                                                         <MapPin className="w-3.5 h-3.5 flex-shrink-0" /><span className="line-clamp-1">{event.location}</span>
                                                     </div>
                                                 )}
-                                                <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">{event.contact_count || 0} contacts</span>
+                                                <span className="rounded-full bg-[rgba(255,56,92,0.08)] px-3 py-1 text-xs font-semibold text-[var(--accent-brand-deep)]">{event.contact_count || 0} contacts</span>
                                             </div>
                                         ))}
                                     </div>

@@ -29,15 +29,15 @@ export function StatusTabs({ currentStatus, counts, onStatusChange }: StatusTabs
     const getTabClasses = (tabId: string, color: string) => {
         const isActive = currentStatus === tabId;
         const colorClasses: Record<string, string> = {
-            orange: isActive ? 'bg-gradient-to-r from-orange-400 to-orange-500 text-white shadow-lg shadow-orange-200' : 'text-gray-600 hover:bg-orange-50/50 backdrop-blur-sm',
-            blue: isActive ? 'bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-lg shadow-blue-200' : 'text-gray-600 hover:bg-blue-50/50 backdrop-blur-sm',
-            emerald: isActive ? 'bg-gradient-to-r from-emerald-400 to-emerald-500 text-white shadow-lg shadow-emerald-200' : 'text-gray-600 hover:bg-emerald-50/50 backdrop-blur-sm',
-            violet: isActive ? 'bg-gradient-to-r from-violet-400 to-violet-500 text-white shadow-lg shadow-violet-200' : 'text-gray-600 hover:bg-violet-50/50 backdrop-blur-sm',
-            cyan: isActive ? 'bg-gradient-to-r from-cyan-400 to-cyan-500 text-white shadow-lg shadow-cyan-200' : 'text-gray-600 hover:bg-cyan-50/50 backdrop-blur-sm',
-            pink: isActive ? 'bg-gradient-to-r from-pink-400 to-pink-500 text-white shadow-lg shadow-pink-200' : 'text-gray-600 hover:bg-pink-50/50 backdrop-blur-sm',
-            amber: isActive ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-white shadow-lg shadow-amber-200' : 'text-gray-600 hover:bg-amber-50/50 backdrop-blur-sm',
+            orange: isActive ? 'bg-[linear-gradient(135deg,#171311,#ff7a45)] text-white shadow-[0_16px_30px_rgba(249,115,22,0.18)]' : 'text-gray-600 hover:bg-[rgba(249,115,22,0.08)]',
+            blue: isActive ? 'bg-[linear-gradient(135deg,#171311,#4f7cff)] text-white shadow-[0_16px_30px_rgba(79,124,255,0.18)]' : 'text-gray-600 hover:bg-[rgba(79,124,255,0.08)]',
+            emerald: isActive ? 'bg-[linear-gradient(135deg,#171311,#10b981)] text-white shadow-[0_16px_30px_rgba(16,185,129,0.18)]' : 'text-gray-600 hover:bg-[rgba(16,185,129,0.08)]',
+            violet: isActive ? 'bg-[linear-gradient(135deg,#171311,#7c3aed)] text-white shadow-[0_16px_30px_rgba(124,58,237,0.18)]' : 'text-gray-600 hover:bg-[rgba(124,58,237,0.08)]',
+            cyan: isActive ? 'bg-[linear-gradient(135deg,#171311,#06b6d4)] text-white shadow-[0_16px_30px_rgba(6,182,212,0.18)]' : 'text-gray-600 hover:bg-[rgba(6,182,212,0.08)]',
+            pink: isActive ? 'bg-[linear-gradient(135deg,#171311,#ff385c)] text-white shadow-[0_16px_30px_rgba(255,56,92,0.18)]' : 'text-gray-600 hover:bg-[rgba(255,56,92,0.08)]',
+            amber: isActive ? 'bg-[linear-gradient(135deg,#171311,#f59e0b)] text-white shadow-[0_16px_30px_rgba(245,158,11,0.18)]' : 'text-gray-600 hover:bg-[rgba(245,158,11,0.08)]',
         };
-        return `px-3 sm:px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${colorClasses[color] || ''}`;
+        return `px-3 sm:px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap border border-transparent ${colorClasses[color] || ''}`;
     };
 
     return (
@@ -45,13 +45,13 @@ export function StatusTabs({ currentStatus, counts, onStatusChange }: StatusTabs
             <div className="flex items-center gap-2 min-w-max pb-1">
                 <button
                     onClick={() => onStatusChange('all')}
-                    className={`px-3 sm:px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${currentStatus === 'all'
-                            ? 'bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg shadow-slate-200'
-                            : 'text-gray-600 hover:bg-white/50 backdrop-blur-sm'
+                    className={`px-3 sm:px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all whitespace-nowrap border border-transparent ${currentStatus === 'all'
+                            ? 'bg-[linear-gradient(135deg,#171311,#2d211d)] text-white shadow-[0_16px_30px_rgba(23,19,17,0.16)]'
+                            : 'text-gray-600 hover:bg-white/70'
                         }`}
                 >
                     Tous
-                    <span className="ml-1.5 sm:ml-2 px-1.5 sm:px-2 py-0.5 bg-white/20 rounded-full text-[10px] sm:text-xs">{counts.all}</span>
+                    <span className="ml-1.5 sm:ml-2 rounded-full bg-white/20 px-1.5 py-0.5 text-[10px] sm:px-2 sm:text-xs">{counts.all}</span>
                 </button>
                 {tabs.map((tab) => (
                     <button key={tab.id} onClick={() => onStatusChange(tab.id)} className={getTabClasses(tab.id, tab.color)}>

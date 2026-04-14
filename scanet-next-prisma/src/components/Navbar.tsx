@@ -42,22 +42,22 @@ export function Navbar({ view, onViewChange, onSignOut, onAddContact, userName =
 
     return (
         <>
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-                <div className="relative flex items-end justify-between px-4 pt-2 pb-3 safe-area-bottom">
-                    <button onClick={onAddContact} className="absolute left-1/2 -translate-x-1/2 -top-7 w-14 h-14 bg-gradient-to-br from-[#0E3A5D] to-[#1e5a8e] rounded-full shadow-xl flex items-center justify-center hover:scale-105 transition-transform active:scale-95 border-4 border-white z-10" aria-label="Ajouter un contact">
-                        <Plus className="w-7 h-7 text-white" />
+            <nav className="fixed bottom-3 left-3 right-3 z-40 lg:hidden">
+                <div className="relative rounded-[2rem] border border-[rgba(235,227,216,0.92)] bg-[rgba(255,255,255,0.88)] px-4 pb-3 pt-2 shadow-[0_22px_45px_rgba(58,40,28,0.14)] backdrop-blur-xl safe-area-bottom">
+                    <button onClick={onAddContact} className="absolute left-1/2 top-0 z-10 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[linear-gradient(135deg,#171311,#ff385c)] shadow-[0_20px_40px_rgba(255,56,92,0.24)] transition-transform hover:scale-105 active:scale-95 border-4 border-[var(--bg-base)]" aria-label="Ajouter un contact">
+                        <Plus className="h-7 w-7 text-white" />
                     </button>
                     {mainNavItems.map((item, index) => {
                         const Icon = item.icon;
                         const isActive = view === item.id;
                         return (
                             <button key={item.id} onClick={() => handleNavClick(item.id)}
-                                className={`relative flex flex-col items-center justify-center flex-1 max-w-[70px] py-3 transition-all ${index === 1 ? 'mr-8' : ''} ${index === 2 ? 'ml-8' : ''} ${isActive ? 'text-[#0E3A5D]' : 'text-gray-500'}`}
+                                className={`relative flex max-w-[76px] flex-1 flex-col items-center justify-center rounded-[1.3rem] py-3 transition-all ${index === 1 ? 'mr-8' : ''} ${index === 2 ? 'ml-8' : ''} ${isActive ? 'bg-[rgba(255,56,92,0.08)] text-[var(--accent-brand-deep)]' : 'text-gray-500'}`}
                             >
-                                <Icon className={`w-6 h-6 ${isActive ? 'scale-110' : ''} transition-transform`} />
-                                <span className={`text-[10px] font-medium mt-1 ${isActive ? 'font-semibold' : ''}`}>{item.label}</span>
+                                <Icon className={`h-6 w-6 ${isActive ? 'scale-110' : ''} transition-transform`} />
+                                <span className={`mt-1 text-[10px] font-medium ${isActive ? 'font-semibold' : ''}`}>{item.label}</span>
                                 {item.badge !== undefined && item.badge > 0 && (
-                                    <span className="absolute top-0 right-2 w-4 h-4 bg-red-500 text-white text-[9px] rounded-full flex items-center justify-center font-semibold">{item.badge > 9 ? '9+' : item.badge}</span>
+                                    <span className="absolute right-2 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent-brand)] text-[9px] font-semibold text-white">{item.badge > 9 ? '9+' : item.badge}</span>
                                 )}
                             </button>
                         );
@@ -69,18 +69,18 @@ export function Navbar({ view, onViewChange, onSignOut, onAddContact, userName =
             {showMoreMenu && (
                 <>
                     <div className="fixed inset-0 bg-black/50 z-50 lg:hidden" onClick={() => setShowMoreMenu(false)} />
-                    <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 lg:hidden shadow-2xl max-h-[80vh] overflow-y-auto">
-                        <div className="sticky top-0 bg-white rounded-t-3xl z-10 border-b border-gray-200">
+                    <div className="fixed bottom-0 left-0 right-0 z-50 max-h-[80vh] overflow-y-auto rounded-t-[2rem] bg-[rgba(255,252,248,0.98)] shadow-[0_-24px_60px_rgba(58,40,28,0.18)] lg:hidden">
+                        <div className="sticky top-0 z-10 rounded-t-[2rem] border-b border-[rgba(235,227,216,0.9)] bg-[rgba(255,252,248,0.96)] backdrop-blur-xl">
                             <div className="flex items-center justify-between p-4">
-                                <h3 className="text-lg font-bold text-gray-900">Menu</h3>
+                                <h3 className="display-title text-3xl text-[var(--text-dark)]">Menu</h3>
                                 <button onClick={() => setShowMoreMenu(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5 text-gray-600" /></button>
                             </div>
                         </div>
                         <div className="p-4 space-y-2">
-                            <button onClick={() => { setShowNotifications(true); setShowMoreMenu(false); }} className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                            <button onClick={() => { setShowNotifications(true); setShowMoreMenu(false); }} className="w-full flex items-center justify-between rounded-[1.5rem] border border-[rgba(235,227,216,0.9)] bg-white/90 p-4 transition-colors hover:bg-white">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center relative">
-                                        <Bell className="w-5 h-5 text-blue-600" />
+                                    <div className="relative flex h-10 w-10 items-center justify-center rounded-[1rem] bg-[rgba(255,56,92,0.08)]">
+                                        <Bell className="h-5 w-5 text-[var(--accent-brand-deep)]" />
                                         {unreadCount > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-semibold">{unreadCount > 9 ? '9+' : unreadCount}</span>}
                                     </div>
                                     <div className="text-left"><p className="font-medium text-gray-900">Notifications</p>{unreadCount > 0 && <p className="text-xs text-gray-500">{unreadCount} non lue{unreadCount > 1 ? 's' : ''}</p>}</div>
@@ -92,10 +92,10 @@ export function Navbar({ view, onViewChange, onSignOut, onAddContact, userName =
                                 const isActive = view === item.id;
                                 return (
                                     <button key={item.id} onClick={() => { onViewChange(item.id); setShowMoreMenu(false); }}
-                                        className={`w-full flex items-center justify-between p-4 rounded-xl transition-colors ${isActive ? 'bg-[#0E3A5D] text-white' : 'hover:bg-gray-50'}`}
+                                        className={`w-full flex items-center justify-between rounded-[1.5rem] p-4 transition-colors ${isActive ? 'bg-[linear-gradient(135deg,#171311,#2d211d)] text-white shadow-[0_20px_40px_rgba(23,19,17,0.16)]' : 'border border-transparent bg-white/70 hover:border-[rgba(235,227,216,0.9)] hover:bg-white'}`}
                                     >
                                         <div className="flex items-center gap-3">
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? 'bg-white/20' : 'bg-gray-100'}`}><Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-700'}`} /></div>
+                                            <div className={`flex h-10 w-10 items-center justify-center rounded-[1rem] ${isActive ? 'bg-white/20' : 'bg-[rgba(255,56,92,0.08)]'}`}><Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[var(--accent-brand-deep)]'}`} /></div>
                                             <span className={`font-medium ${isActive ? 'text-white' : 'text-gray-900'}`}>{item.label}</span>
                                         </div>
                                         {item.badge && <span className={`px-2 py-1 rounded-full text-xs font-semibold ${isActive ? 'bg-white/20 text-white' : 'bg-red-100 text-red-600'}`}>{item.badge}</span>}
@@ -103,9 +103,9 @@ export function Navbar({ view, onViewChange, onSignOut, onAddContact, userName =
                                 );
                             })}
                             <div className="h-px bg-gray-200 my-2" />
-                            <div className="p-4 bg-gray-50 rounded-xl">
+                            <div className="rounded-[1.7rem] border border-[rgba(235,227,216,0.9)] bg-[rgba(255,248,244,0.82)] p-4">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#0E3A5D] to-[#1e5a8e] flex items-center justify-center text-white font-semibold">{getInitials(userName)}</div>
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(135deg,#171311,#ff385c)] text-white font-semibold">{getInitials(userName)}</div>
                                     <div className="flex-1"><p className="font-semibold text-gray-900">{userName}</p><p className="text-sm text-gray-500">{userEmail}</p></div>
                                 </div>
                                 <button onClick={() => { setShowMoreMenu(false); onViewChange('settings'); }} className="w-full flex items-center gap-2 p-3 bg-white rounded-lg hover:bg-gray-100 transition-colors mb-2"><User className="w-5 h-5 text-gray-600" /><span className="text-sm font-medium text-gray-700">Mon profil</span></button>
@@ -121,10 +121,10 @@ export function Navbar({ view, onViewChange, onSignOut, onAddContact, userName =
             {showNotifications && (
                 <>
                     <div className="fixed inset-0 bg-black/50 z-50 lg:hidden" onClick={() => setShowNotifications(false)} />
-                    <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 lg:hidden shadow-2xl max-h-[80vh] overflow-hidden flex flex-col">
-                        <div className="sticky top-0 bg-white rounded-t-3xl z-10 border-b border-gray-200">
+                    <div className="fixed bottom-0 left-0 right-0 z-50 flex max-h-[80vh] flex-col overflow-hidden rounded-t-[2rem] bg-[rgba(255,252,248,0.98)] shadow-[0_-24px_60px_rgba(58,40,28,0.18)] lg:hidden">
+                        <div className="sticky top-0 z-10 rounded-t-[2rem] border-b border-[rgba(235,227,216,0.9)] bg-[rgba(255,252,248,0.96)] backdrop-blur-xl">
                             <div className="flex items-center justify-between p-4">
-                                <h3 className="text-lg font-bold text-gray-900">Notifications</h3>
+                                <h3 className="display-title text-3xl text-[var(--text-dark)]">Notifications</h3>
                                 <div className="flex items-center gap-2">
                                     {unreadCount > 0 && <button onClick={() => markAllAsRead()} className="text-xs text-blue-600 hover:text-blue-700 font-medium px-3 py-1.5 rounded-lg hover:bg-blue-50">Tout marquer</button>}
                                     <button onClick={() => setShowNotifications(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5 text-gray-600" /></button>

@@ -131,19 +131,19 @@ export function PersonalObjectives({ compact = false }: PersonalObjectivesProps)
 
     return (
         <>
-            <div className="glass-card p-5 lg:p-6 relative overflow-hidden">
-                <svg className="absolute top-0 right-0 w-48 h-48 opacity-[0.03]" viewBox="0 0 200 200">
-                    <circle cx="100" cy="100" r="80" stroke="#0E3A5D" strokeWidth="2" fill="none" />
-                    <path d="M100 20 L100 100 L160 100" stroke="#0E3A5D" strokeWidth="2" fill="none" />
-                    <circle cx="100" cy="100" r="5" fill="#0E3A5D" />
+            <div className="glass-card relative overflow-hidden p-5 lg:p-6">
+                <svg className="absolute right-0 top-0 h-48 w-48 opacity-[0.04]" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="80" stroke="#ff385c" strokeWidth="2" fill="none" />
+                    <path d="M100 20 L100 100 L160 100" stroke="#ff385c" strokeWidth="2" fill="none" />
+                    <circle cx="100" cy="100" r="5" fill="#ff385c" />
                 </svg>
 
                 <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0E3A5D] to-[#1e5a8e] flex items-center justify-center shadow-md"><Target className="w-5 h-5 text-white" /></div>
+                        <div className="flex h-10 w-10 items-center justify-center rounded-[1rem] bg-[linear-gradient(135deg,#171311,#ff385c)] shadow-[0_18px_32px_rgba(255,56,92,0.16)]"><Target className="w-5 h-5 text-white" /></div>
                         <div>
-                            <h3 className="text-lg font-bold text-gray-900">Mes objectifs</h3>
-                            <div className="flex items-center gap-3 text-xs text-gray-500">
+                            <h3 className="display-title text-3xl text-[var(--text-dark)]">Mes objectifs</h3>
+                            <div className="flex items-center gap-3 text-xs text-[var(--text-gray)]">
                                 <span>{activeCount} actif{activeCount > 1 ? 's' : ''}</span>
                                 {achievedCount > 0 && (<><span className="w-1 h-1 rounded-full bg-gray-300" /><span className="text-emerald-600 font-medium">{achievedCount} atteint{achievedCount > 1 ? 's' : ''}</span></>)}
                                 {activeCount > 0 && (<><span className="w-1 h-1 rounded-full bg-gray-300" /><span className="font-medium">{totalProgress}% global</span></>)}
@@ -152,24 +152,24 @@ export function PersonalObjectives({ compact = false }: PersonalObjectivesProps)
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <button onClick={handleRefresh} disabled={refreshing} className="p-2 hover:bg-gray-100 rounded-xl transition-colors" title="Actualiser les valeurs">
+                        <button onClick={handleRefresh} disabled={refreshing} className="rounded-[1rem] border border-[rgba(235,227,216,0.9)] bg-white/80 p-2 transition-colors hover:bg-white" title="Actualiser les valeurs">
                             <RefreshCw className={`w-4 h-4 text-gray-500 ${refreshing ? 'animate-spin' : ''}`} />
                         </button>
                         {!compact && (
                             <div className="relative">
-                                <button onClick={() => setShowFilters(!showFilters)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                <button onClick={() => setShowFilters(!showFilters)} className="floating-panel flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-white">
                                     <Filter className="w-3.5 h-3.5" />{filterStatus === 'all' ? 'Tous' : filterStatus === 'active' ? 'Actifs' : 'Atteints'}<ChevronDown className="w-3 h-3" />
                                 </button>
                                 {showFilters && (
-                                    <div className="absolute right-0 top-full mt-1 w-36 bg-white rounded-xl shadow-xl border border-gray-200 z-20 overflow-hidden">
+                                    <div className="absolute right-0 top-full z-20 mt-1 w-36 overflow-hidden rounded-[1.25rem] border border-[rgba(235,227,216,0.95)] bg-[rgba(255,252,248,0.98)] shadow-[0_18px_40px_rgba(58,40,28,0.16)]">
                                         {[{ value: 'all', label: 'Tous' }, { value: 'active', label: 'Actifs' }, { value: 'achieved', label: 'Atteints' }].map((f) => (
-                                            <button key={f.value} onClick={() => { setFilterStatus(f.value as 'all' | 'active' | 'achieved'); setShowFilters(false); }} className={`w-full text-left px-3 py-2 text-sm transition-colors ${filterStatus === f.value ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>{f.label}</button>
+                                            <button key={f.value} onClick={() => { setFilterStatus(f.value as 'all' | 'active' | 'achieved'); setShowFilters(false); }} className={`w-full px-3 py-2 text-left text-sm transition-colors ${filterStatus === f.value ? 'bg-[rgba(255,56,92,0.08)] font-medium text-[var(--accent-brand-deep)]' : 'text-gray-600 hover:bg-gray-50'}`}>{f.label}</button>
                                         ))}
                                     </div>
                                 )}
                             </div>
                         )}
-                        <button onClick={() => { setEditObjective(null); setShowAddModal(true); }} className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0E3A5D] text-white rounded-xl text-xs font-semibold hover:bg-[#1e5a8e] transition-colors shadow-md shadow-blue-900/10">
+                        <button onClick={() => { setEditObjective(null); setShowAddModal(true); }} className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold shadow-[0_18px_36px_rgba(255,56,92,0.16)] transition-colors">
                             <Plus className="w-3.5 h-3.5" /><span className="hidden sm:inline">Ajouter</span>
                         </button>
                     </div>
@@ -177,11 +177,11 @@ export function PersonalObjectives({ compact = false }: PersonalObjectivesProps)
 
                 {filteredObjectives.length === 0 ? (
                     <div className="text-center py-10">
-                        <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mx-auto mb-4"><Trophy className="w-8 h-8 text-gray-300" /></div>
-                        <h4 className="font-semibold text-gray-700 mb-1">{filterStatus !== 'all' ? 'Aucun objectif dans cette catégorie' : 'Aucun objectif défini'}</h4>
-                        <p className="text-sm text-gray-500 mb-4 max-w-sm mx-auto">{filterStatus !== 'all' ? "Changez le filtre pour voir d'autres objectifs" : 'Fixez-vous des objectifs mesurables pour suivre votre progression en temps réel'}</p>
+                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-[rgba(255,56,92,0.08)]"><Trophy className="w-8 h-8 text-[var(--accent-brand-deep)]" /></div>
+                        <h4 className="mb-1 font-semibold text-gray-700">{filterStatus !== 'all' ? 'Aucun objectif dans cette catégorie' : 'Aucun objectif défini'}</h4>
+                        <p className="mx-auto mb-4 max-w-sm text-sm text-gray-500">{filterStatus !== 'all' ? "Changez le filtre pour voir d'autres objectifs" : 'Fixez-vous des objectifs mesurables pour suivre votre progression en temps réel'}</p>
                         {filterStatus === 'all' && (
-                            <button onClick={() => { setEditObjective(null); setShowAddModal(true); }} className="inline-flex items-center gap-2 px-4 py-2 bg-[#0E3A5D] text-white rounded-xl text-sm font-semibold hover:bg-[#1e5a8e] transition-colors">
+                            <button onClick={() => { setEditObjective(null); setShowAddModal(true); }} className="btn-primary inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
                                 <Plus className="w-4 h-4" />Créer mon premier objectif
                             </button>
                         )}

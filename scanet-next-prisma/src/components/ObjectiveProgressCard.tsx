@@ -71,7 +71,7 @@ export function ObjectiveProgressCard({ objective, onEdit, onDelete, onReactivat
     const progressColor = getProgressColor();
 
     return (
-        <div className={`relative group rounded-xl border p-4 transition-all duration-300 hover:-translate-y-0.5 ${isAchieved ? 'bg-gradient-to-br from-emerald-50 to-white border-emerald-200 shadow-[0_2px_12px_rgba(16,185,129,0.12)]' : 'bg-white border-gray-200 shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)]'}`}>
+        <div className={`group relative rounded-[1.5rem] border p-4 transition-all duration-300 hover:-translate-y-0.5 ${isAchieved ? 'border-emerald-200 bg-[linear-gradient(180deg,rgba(236,253,245,0.96),rgba(255,255,255,0.94))] shadow-[0_18px_36px_rgba(16,185,129,0.12)]' : 'border-[rgba(235,227,216,0.92)] bg-white/92 shadow-[0_16px_30px_rgba(58,40,28,0.08)] hover:shadow-[0_20px_40px_rgba(58,40,28,0.12)]'}`}>
             {isAchieved && (
                 <div className="absolute -top-2 -right-2 z-10">
                     <div className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><CheckCircle2 className="w-4 h-4 text-white" /></div>
@@ -80,19 +80,19 @@ export function ObjectiveProgressCard({ objective, onEdit, onDelete, onReactivat
 
             <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${config.color}15` }}>
+                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[0.9rem]" style={{ backgroundColor: `${config.color}15` }}>
                         <Icon className="w-4 h-4" style={{ color: config.color }} />
                     </div>
                     <div className="min-w-0">
-                        <h4 className="font-semibold text-sm text-gray-900 truncate">{objective.title}</h4>
-                        <p className="text-xs text-gray-500 truncate">{getSubtitle()}</p>
+                        <h4 className="truncate text-lg font-semibold text-gray-900 [font-family:var(--font-display)]">{objective.title}</h4>
+                        <p className="truncate text-xs text-gray-500">{getSubtitle()}</p>
                     </div>
                 </div>
 
                 <div className="relative" ref={menuRef}>
-                    <button onClick={() => setShowMenu(!showMenu)} className="p-1 hover:bg-gray-100 rounded-lg transition-colors opacity-0 group-hover:opacity-100"><MoreVertical className="w-4 h-4 text-gray-400" /></button>
+                    <button onClick={() => setShowMenu(!showMenu)} className="rounded-lg p-1 opacity-0 transition-colors hover:bg-gray-100 group-hover:opacity-100"><MoreVertical className="w-4 h-4 text-gray-400" /></button>
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 w-40 bg-white rounded-xl shadow-xl border border-gray-200 z-20 overflow-hidden">
+                        <div className="absolute right-0 top-full z-20 mt-1 w-40 overflow-hidden rounded-[1.15rem] border border-[rgba(235,227,216,0.95)] bg-[rgba(255,252,248,0.98)] shadow-[0_18px_40px_rgba(58,40,28,0.16)]">
                             <button onClick={() => { onEdit(objective); setShowMenu(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><Pencil className="w-3.5 h-3.5" /> Modifier</button>
                             {isAchieved && <button onClick={() => { onReactivate(objective.id); setShowMenu(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm text-blue-600 hover:bg-blue-50"><RotateCcw className="w-3.5 h-3.5" /> Réactiver</button>}
                             <button onClick={() => { onDelete(objective.id); setShowMenu(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50"><Trash2 className="w-3.5 h-3.5" /> Supprimer</button>

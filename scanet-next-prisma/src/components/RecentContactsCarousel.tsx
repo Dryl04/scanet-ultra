@@ -26,8 +26,14 @@ export function RecentContactsCarousel({ contacts, onContactClick }: RecentConta
     ];
 
     return (
-        <div className="mb-6 overflow-hidden glass-card lg:bg-transparent lg:backdrop-blur-none lg:shadow-none lg:border-0 p-4 lg:p-0">
-            <div className="flex items-center gap-3 lg:gap-4 overflow-x-auto pb-0 scrollbar-hide -mx-2 px-2">
+        <div className="glass-card mb-6 overflow-hidden p-4 lg:bg-transparent lg:p-0 lg:shadow-none lg:border-0">
+            <div className="mb-3 flex items-center justify-between px-1 lg:px-0">
+                <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent-brand-deep)]">Présence récente</p>
+                    <p className="text-sm text-[var(--text-gray)]">Vos derniers échanges à portée de main.</p>
+                </div>
+            </div>
+            <div className="scrollbar-hide -mx-2 flex items-center gap-3 overflow-x-auto px-2 pb-0 lg:gap-4">
                 {recentContacts.map((contact, index) => (
                     <button
                         key={contact.id}
@@ -35,20 +41,21 @@ export function RecentContactsCarousel({ contacts, onContactClick }: RecentConta
                         className="flex-shrink-0 group relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 rounded-full"
                         title={contact.full_name}
                     >
-                        <div className="relative">
-                            <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden bg-gradient-to-br ${gradients[index % gradients.length]} flex items-center justify-center ring-2 ring-white/70 shadow-md group-hover:scale-110 group-hover:ring-4 group-hover:ring-white transition-all duration-300 group-hover:shadow-xl`}>
+                        <div className="relative text-center">
+                            <div className={`flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br ${gradients[index % gradients.length]} shadow-md ring-2 ring-white/80 transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:ring-4 group-hover:ring-white sm:h-14 sm:w-14 lg:h-16 lg:w-16`}>
                                 {contact.avatar_url ? (
                                     <img src={contact.avatar_url} alt={contact.full_name} className="w-full h-full object-cover" />
                                 ) : (
                                     <span className="text-white text-xs sm:text-sm lg:text-base font-bold">{getInitials(contact.full_name)}</span>
                                 )}
                             </div>
-                            <div className="absolute -top-0.5 -right-0.5 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full border-2 border-white shadow-sm" />
+                            <div className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-white bg-gradient-to-br from-emerald-400 to-emerald-500 shadow-sm sm:h-3.5 sm:w-3.5" />
+                            <p className="mt-2 max-w-[68px] truncate text-[11px] font-medium text-[var(--text-gray)] lg:max-w-[80px]">{contact.full_name.split(' ')[0]}</p>
                         </div>
                     </button>
                 ))}
                 {contacts.length > recentContacts.length && (
-                    <div className="flex-shrink-0 ml-2 text-xs lg:text-sm font-semibold text-gray-600 px-3 lg:px-5 py-1.5 lg:py-2.5 bg-white/40 backdrop-blur-sm rounded-full border border-white/60">
+                    <div className="floating-panel ml-2 flex-shrink-0 px-3 py-1.5 text-xs font-semibold text-gray-600 lg:px-5 lg:py-2.5 lg:text-sm">
                         +{contacts.length - recentContacts.length}
                     </div>
                 )}

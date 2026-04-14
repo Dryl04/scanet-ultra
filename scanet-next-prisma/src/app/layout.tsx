@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="fr">
-            <body className={inter.className}>
+            <body className={`${inter.variable} ${inter.className}`}>
                 <SessionProvider>
                     {children}
                 </SessionProvider>
